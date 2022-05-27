@@ -1,0 +1,9 @@
+{
+	"apps": {
+		"name": "node-server",
+		"script": "app.js",
+		"env": {
+			"NODE_ENV": "production"
+		}
+	}
+}
