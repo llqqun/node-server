@@ -19,6 +19,7 @@ router.get('/userInfo', function(req, res) {
 // 登入
 router.post('/login', async function(req, res) {
     const body = req.body
+    console.log(body)
     let token = jwt.sign({name: body.username, password: body.password}, config.jwtSecretKey, { expiresIn: '10h' })
     let db = new mysql()
     let data = null

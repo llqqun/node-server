@@ -2,7 +2,7 @@ const express = require('express')
 const router = require('./routes/index')
 const commonApi = require('./routes/common')
 const cors = require('cors')
-
+const bodyParser = require('body-parser')
 const app = express()
 
 // cors 解决跨域问题 'Access-Control-Allow-Origin', '*'
@@ -12,6 +12,9 @@ app.use(cors())
 app.use(express.urlencoded({
     extended: false
 }))
+// json 数据解析
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // 静态文件
 app.use('/public', express.static('public'))
