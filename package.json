@@ -4,8 +4,8 @@
   "description": "node服务端项目",
   "main": "app.js",
   "scripts": {
-    "start": "pm2 start processes.json",
     "dev": "nodemon app.js",
+    "start": "pm2 start processes.json",
     "demo": "node demo.js"
   },
   "author": "lance jy381420074@163.com",
@@ -19,6 +19,8 @@
     "express-jwt": "^5.3.3",
     "express-session": "^1.17.2",
     "http-errors": "~1.6.3",
+    "joi": "^17.6.0",
+    "js-md5": "^0.7.3",
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
     "mysql": "^2.18.1"

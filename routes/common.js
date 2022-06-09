@@ -46,14 +46,12 @@ router.post('/register', async function(req, res) {
     let data = null
     let sql = `INSERT INTO ky_user ( username, password, email ) VALUES ( '${ username }' , '${password}','${ email }' );`
     await db.updatedData(sql).then((res) => {
-        data = res
-    }).catch((error) => {
-        res.cc(error)
-    })
-    res.send({
+        res.send({
         code: 200,
         msg: '成功',
-        data: data,
+    })
+    }).catch((error) => {
+        res.cc(error)
     })
 })
 module.exports = router

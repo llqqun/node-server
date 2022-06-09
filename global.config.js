@@ -2,6 +2,7 @@ const express = require('express')
 const router = require('./routes/index')
 const commonApi = require('./routes/common')
 const cors = require('cors')
+const joi = require('joi')
 const bodyParser = require('body-parser')
 const app = express()
 
@@ -24,7 +25,6 @@ app.use((req, res, next) => {
     // status 默认值为 1，表示失败的情况
     // err 的值，可能是一个错误对象，也可能是一个错误的描述字符串
     res.cc = function (err, status = 1) {
-        console.log('错误响应处理')
         res.send({
             status,
             message: err instanceof Error ? err.message : err,
@@ -53,7 +53,7 @@ app.use(expressJWT({
           return null;
     }
 }).unless({
-    path: [/^\/common/]
+    path: [/^\/common/, /^\/error/]
 }))
 
 app.use('/view', express.static('view'))
@@ -61,10 +61,12 @@ app.use('/public', express.static('public'))
 // 路由
 app.use('/api', router)
 app.use('/common', commonApi)
-
+app.use('/error', require('./routes/errorCapture'))
 // 定义错误级别的中间件
 app.use((err, req, res, next) => {
-    console.log('错误中间件')
+    console.log('68: 全局错误')
+    // 验证失败导致的错误
+    if (err instanceof joi.ValidationError) return res.cc(err)
     // 身份认证失败后的错误
     if (err.name === 'UnauthorizedError') return res.cc('身份认证失败！')
     // 未知的错误

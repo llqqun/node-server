@@ -41,5 +41,16 @@ class MysqlHandel {
             })
         })
     }
+    install(sql, params) {
+        return new Promise(async (resolve, reject) => {
+            await this.mysqlInit.query(sql, params, (error, results) => {
+                if (error) {
+                    reject({ error })
+                } else {
+                    resolve(results)
+                }
+            })
+        })
+    }
 }
 module.exports = MysqlHandel
